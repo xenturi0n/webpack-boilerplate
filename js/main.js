@@ -1,26 +1,6 @@
 import React from "react";
 import {render} from 'react-dom';
 
-class Main extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            clickCount: 0,
-        };
-    }
-    render() {
-        return <div>
-            <a href="" onClick={this.handleClick.bind(this)}>Click Here: {this.state.clickCount}</a>
-        </div>;
-    }
-    handleClick(event) {
-        event.preventDefault();
-        this.setState({
-            clickCount: this.state.clickCount + 1,
-        });
-    }
-}
+import App from './app.jsx';
 
-render((
-    <Main/>
-), document.getElementById('main'));
+render(<App />, document.getElementById('main'));
