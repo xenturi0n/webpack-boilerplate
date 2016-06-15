@@ -10,7 +10,7 @@ class App extends Component {
     }
     render() {
         return(<div>
-            <a href="" onClick={this.handleClick.bind(this)}>Only Click: {this.state.clickCount}</a>
+            <a href="" onClick={this.handleClick.bind(this)}> Click Aqui: {this.state.clickCount}</a>
         </div>);
     }
     handleClick(event) {
