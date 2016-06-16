@@ -1,40 +1,46 @@
-/* global __dirname */
-
 var path = require('path');
-
 var webpack = require('webpack');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var dir_js = path.resolve(__dirname, 'js');
-var dir_html = path.resolve(__dirname, 'html');
-var dir_build = path.resolve(__dirname, 'build');
+var paths = {
+    src: {
+        root: path.resolve(__dirname, 'src'),
+        js: path.resolve(__dirname, 'src',  'assets', 'js'),
+        scss: path.resolve(__dirname, 'src', 'assets', 'scss')
+    },
+    dist:{
+        root: path.resolve(__dirname, 'dist'),
+        js: path.resolve(__dirname, 'dist',  'assets', 'js'),
+        css: path.resolve(__dirname, 'dist', 'assets', 'css')
+    }
+}
+
 
 module.exports = {
     entry: [
-        path.resolve(dir_js, 'main.js')
+        path.resolve(paths.src.js, 'main.js')
         ],
     output: {
-        path: dir_build,
+        path: paths.dist.js,
         filename: 'bundle.js'
     },
     devServer: {
-        contentBase: dir_build,
+        contentBase: paths.dist.root,
     },
     module: {
         loaders: [{
             test: /\.(js|jsx)$/,
             exclude: /(node_modules|bower_components)/,
             loader: 'babel',
-            include: dir_js
+            include: paths.src.js
         }]
     },
     plugins: [
-        // Simply copies the files over
-        new CopyWebpackPlugin([
-            { from: dir_html } // to: output.path
-        ]),
         // Avoid publishing files when compilation fails
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin(),
+        new HtmlWebpackPlugin({
+            template: path.resolve(paths.src.root, 'index.html')
+        })
     ],
     stats: {
         // Nice colored output
