@@ -1,6 +1,8 @@
 import React, {Component}from 'react';
 import {render} from 'react-dom';
 
+import styles from '../scss/estilos.css'
+
 class App extends Component {
     constructor() {
         super();
@@ -9,7 +11,7 @@ class App extends Component {
         };
     }
     render() {
-        return(<div>
+        return(<div className={styles.limeBackground}>
             <a href="" onClick={this.handleClick.bind(this)}> Click: {this.state.clickCount}</a>
         </div>);
     }

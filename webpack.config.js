@@ -33,6 +33,11 @@ module.exports = {
             exclude: /(node_modules|bower_components)/,
             loader: 'babel',
             include: paths.src.js
+        },{
+            test: /\.css$/,
+            loaders: ['style', 'css'],
+            exclude: /(node_modules|bower_components)/,
+            include: paths.src.scss
         }]
     },
     plugins: [
