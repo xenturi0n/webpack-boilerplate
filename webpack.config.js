@@ -21,8 +21,8 @@ module.exports = {
         path.resolve(paths.src.js, 'main.js')
         ],
     output: {
-        path: paths.dist.js,
-        filename: 'bundle.js'
+        path: paths.dist.root,
+        filename: 'assets/js/bundle.js'
     },
     devServer: {
         contentBase: paths.dist.root,
@@ -39,7 +39,8 @@ module.exports = {
         // Avoid publishing files when compilation fails
         new webpack.NoErrorsPlugin(),
         new HtmlWebpackPlugin({
-            template: path.resolve(paths.src.root, 'index.html')
+            template: path.resolve(paths.src.root, 'index.html'),
+            filename: 'index.html'
         })
     ],
     stats: {

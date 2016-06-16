@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <title>My App</title>
-  </head>
-  <body>
-    <h1>Primer Configuracion React asds intento</h1>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plantila React</title>
+    <% for (var css in htmlWebpackPlugin.files.css) { %>
+        <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+    <% } %>
+</head>
+<body>
+    <h1>Titulo plantilla</h1>
     <div id="main"></div>
-    <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script> 
-    
-  </body>
+</body>
 </html>
