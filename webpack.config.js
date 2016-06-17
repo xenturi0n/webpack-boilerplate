@@ -48,7 +48,8 @@ switch(process.env.npm_lifecycle_event){
             {devtool: 'source-map'},
             parts.prodJSLoaders({
                 path: paths.src.js
-            }),            
+            }),
+            parts.minify(),            
             parts.prodCSSLoaders({
                 path: paths.src.scss
             })

@@ -80,3 +80,23 @@ exports.prodCSSLoaders = function(options){
         }
     }
 }
+
+exports.minify = function() {
+    return {
+        plugins: [
+            new webpack.optimize.UglifyJsPlugin({
+                beautify: false,
+                comments: false,                
+                compress: {
+                    warnings: false,
+                    drop_console: true
+                },
+                mangle: {
+                    exept: ['$', 'webpackJsonp'],
+                    screw_ie8: true,
+                    keep_fnames: true
+                }
+            })
+        ]
+    };
+}
