@@ -1,8 +1,12 @@
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const merge = require('webpack-merge');
+const validate = require('webpack-validator');
 
-var paths = {
+const parts = require('./webpack.parts.js');
+
+const paths = {
     src: {
         root: path.resolve(__dirname, 'src'),
         js: path.resolve(__dirname, 'src',  'assets', 'js'),
@@ -15,41 +19,58 @@ var paths = {
     }
 }
 
-
-module.exports = {
-    entry: [
-        path.resolve(paths.src.js, 'main.js')
-        ],
+const common = {
+    entry: {
+        bundle: path.resolve(paths.src.js, 'main.js')
+    },
     output: {
         path: paths.dist.root,
-        filename: 'assets/js/bundle.js'
-    },
-    devServer: {
-        contentBase: paths.dist.root,
-    },
-    module: {
-        loaders: [{
-            test: /\.(js|jsx)$/,
-            exclude: /(node_modules|bower_components)/,
-            loader: 'babel',
-            include: paths.src.js
-        },{
-            test: /\.css$/,
-            loaders: ['style', 'css'],
-            exclude: /(node_modules|bower_components)/,
-            include: paths.src.scss
-        }]
+        filename: 'assets/js/[name].js'
     },
     plugins: [
-        // Avoid publishing files when compilation fails
-        new webpack.NoErrorsPlugin(),
         new HtmlWebpackPlugin({
             template: path.resolve(paths.src.root, 'index.html'),
             filename: 'index.html'
-        })
+        }),
+        new webpack.NoErrorsPlugin()
     ],
     stats: {
-        // Nice colored output
         colors: true
     }
-};
+}
+
+var config;
+
+switch(process.env.npm_lifecycle_event){
+    case 'build':
+        config = merge(
+            common, 
+            {devtool: 'source-map'},
+            parts.prodJSLoaders({
+                path: paths.src.js
+            }),            
+            parts.prodCSSLoaders({
+                path: paths.src.scss
+            })
+        );
+        break;
+    default:
+        config = merge(
+            common,
+            {devtool: 'eval-source-map'}, 
+            parts.devServer({
+                host: process.env.HOST,
+                port: process.env.PORT,
+                contentBase: paths.dist.root
+            }),
+            parts.devJSLoaders({
+                path: paths.src.js
+            }),
+            parts.devCSSLoaders({
+                path: paths.src.scss
+            })
+        );
+}
+
+
+module.exports = validate(config);

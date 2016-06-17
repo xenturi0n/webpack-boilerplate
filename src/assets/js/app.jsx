@@ -12,7 +12,7 @@ class App extends Component {
     }
     render() {
         return(<div className={styles.limeBackground}>
-            <a href="" onClick={this.handleClick.bind(this)}> Click: {this.state.clickCount}</a>
+            <a href="" onClick={this.handleClick.bind(this)}> Click : {this.state.clickCount}</a>
         </div>);
     }
     handleClick(event) {
