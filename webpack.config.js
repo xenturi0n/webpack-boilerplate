@@ -21,7 +21,7 @@ const paths = {
 
 const common = {
     entry: {
-        bundle: path.resolve(paths.src.js, 'main.js')
+        app: path.resolve(paths.src.js, 'main.js')
     },
     output: {
         path: paths.dist.root,
@@ -45,9 +45,19 @@ switch(process.env.npm_lifecycle_event){
     case 'build':
         config = merge(
             common, 
-            {devtool: 'source-map'},
+            {
+                devtool: 'source-map',
+                output:{
+                    path: paths.dist.root,
+                    filename: 'assets/js/[name].[chunkhash].js'
+                }
+            },            
             parts.prodJSLoaders({
                 path: paths.src.js
+            }),
+            parts.extractBundle({
+                name: 'vendor',
+                entries: ['react','react-dom']
             }),
             parts.minify(),            
             parts.prodCSSLoaders({
@@ -59,7 +69,9 @@ switch(process.env.npm_lifecycle_event){
     default:
         config = merge(
             common,
-            {devtool: 'eval-source-map'}, 
+            {
+                devtool: 'eval-source-map'
+            }, 
             parts.devServer({
                 host: process.env.HOST,
                 port: process.env.PORT,

@@ -37,7 +37,10 @@ exports.devJSLoaders = function(options){
                 test: /\.(js|jsx)$/,
                 exclude: /(node_modules|bower_components)/,
                 loader: 'babel',
-                include: options.path
+                include: options.path,
+                query: {
+                    presets: ['react-hmre']
+                }
             }]
         }
     }
@@ -110,4 +113,21 @@ exports.clean = function(path){
             })
         ]
     }
+}
+
+exports.extractBundle = function(options) {
+    const entry = {};
+    entry[options.name] = options.entries;
+
+    return {
+        // Define an entry point needed for splitting.
+        entry: entry,
+        plugins: [
+            // Extract bundle and manifest files. Manifest is
+            // needed for reliable caching.
+            new webpack.optimize.CommonsChunkPlugin({
+                names: [options.name, 'manifest']
+            })
+        ]
+    };
 }
