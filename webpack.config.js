@@ -60,9 +60,7 @@ switch(process.env.npm_lifecycle_event){
                 entries: ['react','react-dom']
             }),
             parts.minify(),            
-            parts.prodCSSLoaders({
-                path: paths.src.scss
-            }),
+            parts.extractCSS(paths.src.scss),
             parts.clean(paths.dist.root)
         );
         break;
