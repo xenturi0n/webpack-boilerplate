@@ -1,0 +1,20 @@
+{
+  "name": "react-starter-project",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Axel Rauschmayer"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/xenturi0n/webpack-boilerplate",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation-sites": "^6.2.3"
+  }
+}

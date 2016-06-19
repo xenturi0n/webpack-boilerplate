@@ -112,9 +112,14 @@ exports.extractCSS = function(paths) {
     module: {
       loaders: [
         // Extract CSS during build
+        // {
+        //   test: /\.css$/,
+        //   loader: ExtractTextPlugin.extract('style?sourceMap', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'),
+        //   include: paths
+        // },
         {
-          test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style', 'css?sourceMap?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'),
+          test: /\.(scss|css)$/,
+          loader: ExtractTextPlugin.extract('style?sourceMap', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass?sourceMap'),
           include: paths
         }
       ]
@@ -129,12 +134,27 @@ exports.extractCSS = function(paths) {
 exports.devCSSLoaders = function(options){
     return{
         module:{
-            loaders:[{
-                test: /\.css$/,
-                loaders: ['style', 'css?sourceMap?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'],
-                exclude: /(node_modules|bower_components)/,
-                include: options.path
-            }]
+            loaders:[
+                // {
+                //     test: /\.css$/,
+                //     loaders: [
+                //         'style?sourceMap', 
+                //         'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',                        
+                //     ],
+                //     exclude: /(node_modules|bower_components)/,
+                //     include: options.path
+                // },
+                {
+                    test: /\.(scss|css)$/,
+                    loaders: [
+                        'style?sourceMap', 
+                        'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+                        'sass?sourceMap'
+                    ],
+                    exclude: /(node_modules|bower_components)/,
+                    include: options.path
+                }
+            ]
         }
     }
 }
