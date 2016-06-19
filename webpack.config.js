@@ -22,7 +22,7 @@ const paths = {
 const common = {
     entry: {
         app: path.resolve(paths.src.js, 'main.js'),
-        foundation: path.resolve(paths.src.scss, 'foundation.scss')
+        foundation: path.resolve(paths.src.scss, 'global.foundation.scss')
     },
     output: {
         path: paths.dist.root,

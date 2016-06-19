@@ -9,6 +9,7 @@
   "author": "Axel Rauschmayer",
   "license": "MIT",
   "devDependencies": {
+    "autoprefixer": "^6.3.6",
     "babel-core": "^6.1.21",
     "babel-loader": "^6.1.0",
     "babel-preset-es2015": "^6.1.18",
@@ -20,6 +21,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "html-webpack-plugin": "^2.21.0",
     "node-sass": "^3.8.0",
+    "postcss-loader": "^0.9.1",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.12.6",
