@@ -1,7 +1,0 @@
-:local(.limeBackground){
-    background-color: tomato;
-}
-
-:global(body){
-    background-color: lightcyan;
-}

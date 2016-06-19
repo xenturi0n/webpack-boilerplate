@@ -60,32 +60,6 @@ exports.prodJSLoaders = function(options){
     }
 }
 
-exports.devCSSLoaders = function(options){
-    return{
-        module:{
-            loaders:[{
-                test: /\.css$/,
-                loaders: ['style', 'css?sourceMap'],
-                exclude: /(node_modules|bower_components)/,
-                include: options.path
-            }]
-        }
-    }
-}
-
-exports.prodCSSLoaders = function(options){
-    return{
-        module:{
-            loaders:[{
-                test: /\.css$/,
-                loaders: ['style', 'css'],
-                exclude: /(node_modules|bower_components)/,
-                include: options.path
-            }]
-        }
-    }
-}
-
 exports.minify = function() {
     return {
         plugins: [
@@ -140,7 +114,7 @@ exports.extractCSS = function(paths) {
         // Extract CSS during build
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style', 'css'),
+          loader: ExtractTextPlugin.extract('style', 'css?sourceMap?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'),
           include: paths
         }
       ]
@@ -150,4 +124,17 @@ exports.extractCSS = function(paths) {
       new ExtractTextPlugin('assets/css/[name].[chunkhash].css')
     ]
   };
+}
+
+exports.devCSSLoaders = function(options){
+    return{
+        module:{
+            loaders:[{
+                test: /\.css$/,
+                loaders: ['style', 'css?sourceMap?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'],
+                exclude: /(node_modules|bower_components)/,
+                include: options.path
+            }]
+        }
+    }
 }

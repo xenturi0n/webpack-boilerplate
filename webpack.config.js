@@ -29,8 +29,11 @@ const common = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.resolve(paths.src.root, 'index.html'),
-            filename: 'index.html'
+            // template: path.resolve(paths.src.root, 'index.html'),
+            template: require('html-webpack-template'),
+            filename: 'index.html',
+            appMountId: 'main',
+            inject: false
         }),
         new webpack.NoErrorsPlugin()
     ],
@@ -60,7 +63,7 @@ switch(process.env.npm_lifecycle_event){
                 entries: ['react','react-dom']
             }),
             parts.minify(),            
-            parts.extractCSS(paths.src.scss),
+            parts.extractCSS(paths.src.root),
             parts.clean(paths.dist.root)
         );
         break;
@@ -79,7 +82,7 @@ switch(process.env.npm_lifecycle_event){
                 path: paths.src.js
             }),
             parts.devCSSLoaders({
-                path: paths.src.scss
+                path: paths.src.root
             })
         );
 }
